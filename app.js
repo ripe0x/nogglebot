@@ -1,31 +1,24 @@
 import { Client, GatewayIntentBits } from 'discord.js';
+import * as dotenv from "dotenv";
+dotenv.config();
 
-const client = new Discord.Client({ 
+const allowed = "⌐◨-◨";
+const client = new Client({ 
     intents: [
         GatewayIntentBits.Guilds, 
         GatewayIntentBits.GuildMessages, 
-        GatewayIntentBits.DirectMessages
+        GatewayIntentBits.MessageContent
     ] 
 });
+
 client.once('ready', () => {
     console.log('Ready!');
 });
 
-client.on('interactionCreate', interaction => {
-    console.log(interaction);
-});
-
-const swearWords = ["darn", "shucks", "frak", "shite"]; // Make sure all of the words are lowercased only.
-
 client.on("messageCreate", message => {
-    console.log(message);
-    if (swearWords.some(word => message.content.toLowerCase().includes(word.toLowerCase()))) { // Lowercase the message content for better matching
-        message.reply("Oh no you said a bad word!!!");
-        // Or just do message.delete();
+    if (message.content !== allowed) {
+        message.delete();
     }
 });
-
-
-
 
 client.login(process.env.DISCORD_TOKEN);
