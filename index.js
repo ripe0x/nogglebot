@@ -29,13 +29,15 @@ const client = new Client({
         GatewayIntentBits.MessageContent
     ] 
 });
+const twitterBotId = "713026372142104687";
 
 client.once('ready', () => {
     console.log('Ready!');
 });
 
 client.on("messageCreate", message => {
-    if (message.content !== allowed) {
+    
+    if (message.author.id !== twitterBotId && message.content !== allowed) {
         message.delete();
     }
 });
