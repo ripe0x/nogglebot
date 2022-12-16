@@ -36,8 +36,12 @@ client.once('ready', () => {
 });
 
 client.on("messageCreate", message => {
-    
-    if (message.author.id !== twitterBotId && message.content !== allowed) {
+    console.log("Message received: " + message.content);
+    console.log("Message author id: " + message.author.id);
+    console.log("Message author is bot? " + message.author.bot);
+    // if (message.author.id !== twitterBotId && message.content !== allowed) {
+    if (!message.author.bot && message.content !== allowed) {
+        console.log("Message deleted: " + message.content);
         message.delete();
     }
 });
